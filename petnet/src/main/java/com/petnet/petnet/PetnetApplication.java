@@ -1,0 +1,13 @@
+package com.petnet.petnet;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class PetnetApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(PetnetApplication.class, args);
+	}
+
+}
