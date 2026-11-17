@@ -1,7 +1,7 @@
-package com.petnet.petnet.service;
+package com.petnet.petnet.User.service;
 
-import com.petnet.petnet.model.User;
-import com.petnet.petnet.repository.UserRepository;
+import com.petnet.petnet.User.model.User;
+import com.petnet.petnet.User.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

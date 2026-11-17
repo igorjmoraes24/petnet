@@ -1,6 +1,6 @@
-package com.petnet.petnet.repository;
+package com.petnet.petnet.User.repository;
 
-import com.petnet.petnet.model.User;
+import com.petnet.petnet.User.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.util.List;

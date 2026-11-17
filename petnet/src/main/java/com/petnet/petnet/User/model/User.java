@@ -1,4 +1,4 @@
-package com.petnet.petnet.model;
+package com.petnet.petnet.User.model;
 import jakarta.persistence.*;
 
 import java.util.Date;

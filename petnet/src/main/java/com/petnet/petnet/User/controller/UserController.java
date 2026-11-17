@@ -1,7 +1,7 @@
-package com.petnet.petnet.controller;
+package com.petnet.petnet.User.controller;
 
-import com.petnet.petnet.model.User;
-import com.petnet.petnet.service.UserService;
+import com.petnet.petnet.User.model.User;
+import com.petnet.petnet.User.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,7 +43,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteuUer(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteUer(@PathVariable Long id) {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
