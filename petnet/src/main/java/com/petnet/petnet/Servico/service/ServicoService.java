@@ -1,8 +1,8 @@
 package com.petnet.petnet.Servico.service;
 
-import com.petnet.petnet.Order.model.Order;
 import com.petnet.petnet.Servico.model.Servico;
 import com.petnet.petnet.Servico.repository.ServicoRepository;
+import com.petnet.petnet.User.model.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,8 +34,7 @@ public class ServicoService {
     public Servico updateServico(Long id, Servico dto) {
         Servico servicoExistente = buscarServicoPorId(id);
 
-        servicoExistente.setPediId(dto.getPediId());
-        servicoExistente.setId(dto.getId());
+        servicoExistente.setTiposId(dto.getTiposId());
 
         return servicoRepository.save(servicoExistente);
     }

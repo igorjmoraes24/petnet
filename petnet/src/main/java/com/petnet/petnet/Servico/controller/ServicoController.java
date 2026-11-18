@@ -1,5 +1,6 @@
 package com.petnet.petnet.Servico.controller;
 
+import com.petnet.petnet.Order.model.Order;
 import com.petnet.petnet.Servico.model.Servico;
 import com.petnet.petnet.Servico.service.ServicoService;
 import org.springframework.http.HttpStatus;
@@ -30,9 +31,9 @@ public class ServicoController {
     }
 
     @PostMapping
-    public ResponseEntity<Servico> createServ(@RequestBody Servico serv) {
-        Servico newServ = servicoService.salvar(serv);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newServ);
+    public ResponseEntity<Servico> createOrder(@RequestBody Servico order) {
+        Servico newServico = servicoService.salvar(order);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newServico);
     }
 
     @PutMapping("/{id}")

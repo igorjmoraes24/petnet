@@ -1,47 +1,47 @@
 package com.petnet.petnet.Servico.model;
-import jakarta.persistence.*;
 
-import java.math.BigInteger;
-import java.util.Date;
+import com.petnet.petnet.Order.model.Order;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "servicos")
 public class Servico {
-    @Id
-    @GeneratedValue(
-            strategy = GenerationType.IDENTITY,
-            generator = "pedido_seq_generator"
-    )
-    @SequenceGenerator(
-            name = "pedido_seq_generator",
-            sequenceName = "pedido_seq",
-            allocationSize = 1
-    )
-    @Column(name = "tipos_id")
-    private Long tipos_id;
 
-    @Column(name = "ped_id", nullable = false)
-    private Long ped_id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "ped_id", nullable = false)
+    private Order order;
+
+    @Column(name = "tipos_id")
+    private Long tiposId;
 
     public Servico() {
     }
 
-    public Servico(Long tipos_id, Long ped_id){
-        this.tipos_id = tipos_id;
-        this.ped_id = ped_id;
+    public Servico(Long id, Order order, Long tiposId) {
+        this.id = id;
+        this.order = order;
+        this.tiposId = tiposId;
     }
-
     public Long getId() {
-        return tipos_id;
+        return id;
     }
-    public void setId(Long tipos_id) {
-        this.tipos_id = tipos_id;
+    public void setId(Long id) {
+        this.id = id;
     }
-
-    public Long getPediId() {
-        return ped_id;
+    public Order getOrder() {
+        return order;
     }
-    public void setPediId(Long ped_id) {
-        this.ped_id = ped_id;
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+    public Long getTiposId() {
+        return tiposId;
+    }
+    public void setTiposId(Long tiposId) {
+        this.tiposId = tiposId;
     }
 }

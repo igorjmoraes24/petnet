@@ -3,6 +3,8 @@ package com.petnet.petnet.Order.service;
 
 import com.petnet.petnet.Order.model.Order;
 import com.petnet.petnet.Order.repository.OrderRepository;
+import com.petnet.petnet.Servico.model.Servico;
+import com.petnet.petnet.Servico.repository.ServicoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,9 +13,11 @@ import java.util.List;
 @Service
 public class OrderService {
     private final OrderRepository orderRepository;
+    private final ServicoRepository servicoRepository;
 
-    public OrderService(OrderRepository orderRepository) {
+    public OrderService(OrderRepository orderRepository, ServicoRepository servicoRepository) {
         this.orderRepository = orderRepository;
+        this.servicoRepository = servicoRepository;
     }
 
     public List<Order> showAllOrders() {
@@ -27,13 +31,22 @@ public class OrderService {
 
     @Transactional
     public Order salvar(Order order) {
-        return orderRepository.save(order);
+        Order orderSalva = orderRepository.save(order);
+
+        Servico servico = new Servico();
+        servico.setOrder(orderSalva);
+        servico.setTiposId(orderSalva.getTipo());
+
+        servicoRepository.save(servico);
+
+        return orderSalva;
     }
 
     @Transactional
     public Order updateOrder(Long id, Order dto) {
         Order orderExistente = buscarPedidoPorId(id);
 
+        orderExistente.setUserId(dto.getUserId());
         orderExistente.setPetId(dto.getPetId());
         orderExistente.setPediStatus(dto.getPediStatus());
         orderExistente.setTipo(dto.getTipo());
