@@ -18,7 +18,7 @@ public class Order {
             allocationSize = 1
     )
     @Column(name = "pedi_id")
-    private Long id;
+    private Long pedi_id;
 
     @Column(name = "user_tutor_id", nullable = false)
     private Long user_id;
@@ -58,10 +58,10 @@ public class Order {
     }
 
     public Long getId() {
-        return id;
+        return pedi_id;
     }
     public void setId(Long id) {
-        this.id = id;
+        this.pedi_id = id;
     }
 
     public Long getUserId() {

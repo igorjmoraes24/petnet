@@ -8,7 +8,15 @@ import jakarta.persistence.*;
 public class Servico {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(
+            strategy = GenerationType.IDENTITY,
+            generator = "servico_seq_generator"
+    )
+    @SequenceGenerator(
+            name = "servico_seq_generator",
+            sequenceName = "servico_seq",
+            allocationSize = 1
+    )
     private Long id;
 
     @ManyToOne

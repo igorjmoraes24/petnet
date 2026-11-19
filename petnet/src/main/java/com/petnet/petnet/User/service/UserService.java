@@ -43,9 +43,7 @@ public class UserService {
             userExistente.setEmail(dto.getEmail());
             userExistente.setSenha(dto.getSenha());
             userExistente.setPhone(dto.getPhone());
-            userExistente.setUserTipo(dto.getUserTipo());
             userExistente.setEndereco(dto.getEndereco());
-            userExistente.setDatacri(dto.getDatacri());
 
             return userRepository.save(userExistente);
         }

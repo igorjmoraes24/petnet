@@ -32,15 +32,6 @@ public class User {
     @Column(name = "user_telefone", nullable = false, unique = true, length = 11)
     private String phone;
 
-    public enum UserTipo {
-        TUTOR,
-        VETERINARIO,
-        CLINICA
-    }
-    @Enumerated(EnumType.STRING)
-    @Column(name = "user_tipo", nullable = false, length = 20)
-    private UserTipo userTipo;
-
     @Column(name = "user_endereco", nullable = false, length = 60)
     private String endereco;
 
@@ -52,12 +43,11 @@ public class User {
     }
 
     // Construtor Completo
-    public User(String nome, String email, String senha, String phone, UserTipo userTipo, String endereco, Date datacri) {
+    public User(String nome, String email, String senha, String phone, String endereco, Date datacri) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.phone = phone;
-        this.userTipo = userTipo;
         this.endereco= endereco;
         this.datacri=datacri;
     }
@@ -96,13 +86,6 @@ public class User {
     }
     public void setPhone(String phone) {
         this.email = email;
-    }
-
-    public UserTipo getUserTipo() {
-        return userTipo;
-    }
-    public void setUserTipo(UserTipo userTipo) {
-        this.userTipo = userTipo;
     }
 
     public String getEndereco() {
