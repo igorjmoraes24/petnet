@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "users")
+@Table(name = "usuarios")
 public class User {
 
     @Id
@@ -35,7 +35,7 @@ public class User {
     @Column(name = "user_endereco", nullable = false, length = 60)
     private String endereco;
 
-    @Column(name = "user_datacri", nullable = false, length = 11)
+    @Column(name = "user_datacri", nullable = false)
     private Date datacri;
 
     // Construtor Padrão (Obrigatório para o JPA/Hibernate)

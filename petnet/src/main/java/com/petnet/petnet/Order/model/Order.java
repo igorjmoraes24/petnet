@@ -18,7 +18,7 @@ public class Order {
             allocationSize = 1
     )
     @Column(name = "pedi_id")
-    private Long pedi_id;
+    private Long id;
 
     @Column(name = "user_tutor_id", nullable = false)
     private Long user_id;
@@ -26,42 +26,38 @@ public class Order {
     @Column(name = "pet_id", nullable = false)
     private Long pet_id;
 
+    @Column(name = "serv_id", nullable = false)
+    private Long serv_id;
+
     public enum PediStatus {
         ABERTO,
         EM_ANDAMENTO,
-        ENCERRADO
+        CONCLUIDO,
+        CANCELADO
     }
     @Enumerated(EnumType.STRING)
     @Column(name = "pedi_status", nullable = false)
     private Order.PediStatus status;
 
-    @Column(name = "pedi_tipo_servico", nullable = false)
-    private Long tipo;
-
-    @Column(name = "pedi_descricao_problema", nullable = false)
-    private String desc;
-
     @Column(name = "pedi_datacri", nullable = false)
     private Date datacri;
-
 
     public Order() {
     }
 
-    public Order(Long user_id, Long pet_id, PediStatus status, Long tipo, String desc, Date datacri){
+    public Order(Long user_id, Long pet_id, PediStatus status, Long tipo, String desc, Date datacri, Long serv_id){
         this.user_id = user_id;
         this.pet_id = pet_id;
         this.status = status;
-        this.tipo = tipo;
-        this.desc = desc;
         this.datacri = datacri;
+        this.serv_id = serv_id;
     }
 
     public Long getId() {
-        return pedi_id;
+        return id;
     }
     public void setId(Long id) {
-        this.pedi_id = id;
+        this.id = id;
     }
 
     public Long getUserId() {
@@ -85,16 +81,19 @@ public class Order {
         this.status = status;
     }
 
-    public Long getTipo() { return tipo; }
-    public void setTipo(Long tipo) { this.tipo = tipo; }
-
-    public String getDesc() { return desc; }
-    public void setDesc(String desc) { this.desc = desc; }
-
     public Date getDatacri() {
         return datacri;
     }
     public void setDatacri(Date datacri) {
         this.datacri = datacri;
     }
+
+    public Long getServ_id() {
+        return serv_id;
+    }
+    public void setServ_id(Long serv_id) {
+        this.serv_id = serv_id;
+    }
+
+
 }

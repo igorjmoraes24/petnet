@@ -1,6 +1,5 @@
 package com.petnet.petnet.Servico.controller;
 
-import com.petnet.petnet.Order.model.Order;
 import com.petnet.petnet.Servico.model.Servico;
 import com.petnet.petnet.Servico.service.ServicoService;
 import org.springframework.http.HttpStatus;

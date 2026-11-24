@@ -31,15 +31,7 @@ public class OrderService {
 
     @Transactional
     public Order salvar(Order order) {
-        Order orderSalva = orderRepository.save(order);
-
-        Servico servico = new Servico();
-        servico.setOrder(orderSalva);
-        servico.setTiposId(orderSalva.getTipo());
-
-        servicoRepository.save(servico);
-
-        return orderSalva;
+        return orderRepository.save(order);
     }
 
     @Transactional
@@ -49,8 +41,6 @@ public class OrderService {
         orderExistente.setUserId(dto.getUserId());
         orderExistente.setPetId(dto.getPetId());
         orderExistente.setPediStatus(dto.getPediStatus());
-        orderExistente.setTipo(dto.getTipo());
-        orderExistente.setDesc(dto.getDesc());
         orderExistente.setDatacri(dto.getDatacri());
 
         return orderRepository.save(orderExistente);

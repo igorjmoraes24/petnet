@@ -34,7 +34,7 @@ public class ServicoService {
     public Servico updateServico(Long id, Servico dto) {
         Servico servicoExistente = buscarServicoPorId(id);
 
-        servicoExistente.setTiposId(dto.getTiposId());
+        servicoExistente.setServNome(dto.getServNome());
 
         return servicoRepository.save(servicoExistente);
     }

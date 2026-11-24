@@ -17,22 +17,18 @@ public class Servico {
             sequenceName = "servico_seq",
             allocationSize = 1
     )
+    @Column(name = "serv_id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "ped_id", nullable = false)
-    private Order order;
-
-    @Column(name = "tipos_id")
-    private Long tiposId;
+    @Column(name = "serv_nome", length = 200)
+    private String serv_nome;
 
     public Servico() {
     }
 
-    public Servico(Long id, Order order, Long tiposId) {
+    public Servico(Long id, String serv_nome) {
         this.id = id;
-        this.order = order;
-        this.tiposId = tiposId;
+        this.serv_nome = serv_nome;
     }
     public Long getId() {
         return id;
@@ -40,16 +36,6 @@ public class Servico {
     public void setId(Long id) {
         this.id = id;
     }
-    public Order getOrder() {
-        return order;
-    }
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-    public Long getTiposId() {
-        return tiposId;
-    }
-    public void setTiposId(Long tiposId) {
-        this.tiposId = tiposId;
-    }
+    public String getServNome() { return serv_nome; }
+    public void setServNome(String serv_nome) {this.serv_nome=serv_nome; }
 }
