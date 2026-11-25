@@ -1,11 +1,16 @@
 package com.petnet.petnet.User.model;
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "usuarios")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(
@@ -26,7 +31,7 @@ public class User {
     @Column(name = "user_email", nullable = false, unique = true, length = 80)
     private String email;
 
-    @Column(name = "user_senha", nullable = false, unique = true, length = 80)
+    @Column(name = "user_senha", nullable = false, length = 255)
     private String senha;
 
     @Column(name = "user_telefone", nullable = false, unique = true, length = 11)
@@ -38,9 +43,34 @@ public class User {
     @Column(name = "user_datacri", nullable = false)
     private Date datacri;
 
-    // Construtor Padrão (Obrigatório para o JPA/Hibernate)
-    public User() {
+    public User() {}
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
+
+    @Override
+    public String getPassword() {
+        return this.senha;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() { return true; }
+
+    @Override
+    public boolean isAccountNonLocked() { return true; }
+
+    @Override
+    public boolean isCredentialsNonExpired() { return true; }
+
+    @Override
+    public boolean isEnabled() { return true; }
 
     // Construtor Completo
     public User(String nome, String email, String senha, String phone, String endereco, Date datacri) {
@@ -85,7 +115,7 @@ public class User {
         return phone;
     }
     public void setPhone(String phone) {
-        this.email = email;
+        this.phone = phone;
     }
 
     public String getEndereco() {

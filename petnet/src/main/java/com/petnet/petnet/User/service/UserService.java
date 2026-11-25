@@ -2,6 +2,7 @@ package com.petnet.petnet.User.service;
 
 import com.petnet.petnet.User.model.User;
 import com.petnet.petnet.User.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,10 +12,12 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     // Injeção de Dependência via Construtor (Boa prática recomendada)
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<User> showAllUsers() {
@@ -32,6 +35,10 @@ public class UserService {
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             throw new IllegalArgumentException("Já existe um usuário cadastrado com este e-mail!");
         }
+        user.setSenha(passwordEncoder.encode(user.getSenha()));
+        if (user.getDatacri() == null) {
+            user.setDatacri(new java.util.Date());
+        }
         return userRepository.save(user);
     }
 
@@ -41,7 +48,9 @@ public class UserService {
 
             userExistente.setNome(dto.getNome());
             userExistente.setEmail(dto.getEmail());
-            userExistente.setSenha(dto.getSenha());
+            if (dto.getSenha() != null && !dto.getSenha().isBlank()) {
+                userExistente.setSenha(passwordEncoder.encode(dto.getSenha()));
+            }
             userExistente.setPhone(dto.getPhone());
             userExistente.setEndereco(dto.getEndereco());
 
