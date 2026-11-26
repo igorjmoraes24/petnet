@@ -1,5 +1,6 @@
 package com.petnet.petnet.security;
 
+import com.petnet.petnet.Exception.NotFoundException;
 import com.petnet.petnet.User.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,6 +19,6 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado: " + email));
+                .orElseThrow(() -> new NotFoundException("Usuário não encontrado: " + email));
     }
 }

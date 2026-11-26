@@ -1,6 +1,7 @@
 package com.petnet.petnet.Order.service;
 
 
+import com.petnet.petnet.Exception.NotFoundException;
 import com.petnet.petnet.Order.model.Order;
 import com.petnet.petnet.Order.repository.OrderRepository;
 import com.petnet.petnet.Servico.model.Servico;
@@ -26,7 +27,7 @@ public class OrderService {
 
     public Order buscarPedidoPorId(Long id) {
         return orderRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Pedido não encontrado com o ID: " + id));
+                .orElseThrow(() -> new NotFoundException("Pedido não encontrado com o ID: " + id));
     }
 
     @Transactional

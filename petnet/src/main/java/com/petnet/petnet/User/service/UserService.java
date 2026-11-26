@@ -1,7 +1,10 @@
 package com.petnet.petnet.User.service;
-
+import com.petnet.petnet.Exception.ForbiddenException;
+import com.petnet.petnet.Exception.NotFoundException;
+import com.petnet.petnet.Exception.RulesException;
 import com.petnet.petnet.User.model.User;
 import com.petnet.petnet.User.repository.UserRepository;
+import com.petnet.petnet.security.SecurityUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,14 +29,14 @@ public class UserService {
 
     public User buscarPorId(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuario não encontrado com o ID: " + id));
+                .orElseThrow(() -> new NotFoundException("Usuario não encontrado com o ID: " + id));
     }
 
     @Transactional
     public User salvar(User user) {
         // Regra de Negócio: Não permite cadastrar e-mails duplicados
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
-            throw new IllegalArgumentException("Já existe um usuário cadastrado com este e-mail!");
+            throw new RulesException("Já existe um usuário cadastrado com este e-mail!");
         }
         user.setSenha(passwordEncoder.encode(user.getSenha()));
         if (user.getDatacri() == null) {
@@ -44,6 +47,11 @@ public class UserService {
 
         @Transactional
         public User updateUser(Long id, User dto) {
+            User usuarioLogado = SecurityUtils.getAuthenticatedUser();
+            if (!usuarioLogado.getId().equals(id)) {
+                throw new ForbiddenException("Você não tem permissão para alterar os dados de outro usuário.");
+            }
+
             User userExistente = buscarPorId(id);
 
             userExistente.setNome(dto.getNome());
@@ -59,6 +67,10 @@ public class UserService {
 
     @Transactional
     public void deleteUser(Long id) {
+        User usuarioLogado = SecurityUtils.getAuthenticatedUser();
+        if (!usuarioLogado.getId().equals(id)) {
+            throw new ForbiddenException("Você não tem permissão para deletar a conta de outro usuário.");
+        }
         User user = buscarPorId(id);
         userRepository.delete(user);
     }

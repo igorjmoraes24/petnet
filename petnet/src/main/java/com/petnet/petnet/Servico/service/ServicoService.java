@@ -1,5 +1,6 @@
 package com.petnet.petnet.Servico.service;
 
+import com.petnet.petnet.Exception.NotFoundException;
 import com.petnet.petnet.Servico.model.Servico;
 import com.petnet.petnet.Servico.repository.ServicoRepository;
 import com.petnet.petnet.User.model.User;
@@ -22,7 +23,7 @@ public class ServicoService {
 
     public Servico buscarServicoPorId(Long id) {
         return servicoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Serviço não encontrado com o ID: " + id));
+                .orElseThrow(() -> new NotFoundException("Serviço não encontrado com o ID: " + id));
     }
 
     @Transactional

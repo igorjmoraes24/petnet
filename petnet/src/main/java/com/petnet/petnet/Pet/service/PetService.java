@@ -1,5 +1,6 @@
 package com.petnet.petnet.Pet.service;
 
+import com.petnet.petnet.Exception.NotFoundException;
 import com.petnet.petnet.Pet.model.Pet;
 import com.petnet.petnet.Pet.repository.PetRepository;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ public class PetService {
 
     public Pet buscarPetPorId(Long id) {
         return petRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Pet não encontrado com o ID: " + id));
+                .orElseThrow(() -> new NotFoundException("Pet não encontrado com o ID: " + id));
     }
 
     @Transactional
